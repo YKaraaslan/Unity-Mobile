@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.unity">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.SEND" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="false"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ReminderUpdate" />
+        <activity android:name=".MessageArchive" />
+        <activity android:name=".AssignmentsTotallyFinishedInformation" />
+        <activity android:name=".AssignmentsTotallyFinished" />
+        <activity android:name=".AssignmentsUpdate" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".UsersImageViewer" />
+        <activity android:name=".WorkersInformationAssignmentCreate" />
+        <activity android:name=".ProfileEdit" />
+        <activity android:name=".WorkersInformationAssignments" />
+        <activity android:name=".AssignmentNotesSeenBy" />
+        <activity android:name=".HomePageClient.HomeFinanceNotesAdd" />
+        <activity android:name=".HomePageClient.HomeFinanceNotes" />
+        <activity android:name=".HomeAssignmentsAll.HomeAssignmentsAll" />
+        <activity android:name=".AssignmentNotesAdd" />
+        <activity android:name=".AssignmentNotes" />
+        <activity android:name=".Update" />
+        <activity android:name=".CompanyAdd" />
+        <activity android:name=".HomePageClient.HomeFinance" />
+        <activity android:name=".UsersOnHoldInformation" />
+        <activity android:name=".UsersOnHold" />
+        <activity android:name=".AssignmentsImageViewer" />
+        <activity android:name=".AssignmentsPDFViewer" />
+        <activity android:name=".ReminderAdd" />
+        <activity android:name=".ReminderShow" />
+        <activity android:name=".Reminder" />
+        <activity android:name=".HomePageClient.HomeMyAssignmentsFinish" />
+        <activity android:name=".HomePageClient.HomeMyAssignmentsCompletedInformation" />
+        <activity android:name=".HomePageClient.HomeMyAssignments" />
+        <activity android:name=".ListOfPeople" />
+        <activity android:name=".AssignmentsDirect" />
+        <activity android:name=".AssignmentsCreate" />
+        <activity
+            android:name=".HomeMyServicesOurs"
+            android:label="@string/title_activity_home_my_services_ours"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HomePageClient.HomeMyServices" />
+        <activity android:name=".HomePageClient.HomeMyOrders" />
+        <activity android:name=".HomePageClient.HomeMyOffers" />
+        <activity android:name=".HomePageClient.HomeOrders" />
+        <activity android:name=".ProductsClient.CableProductOrders" />
+        <activity android:name=".ProductsClient.CameraProductOrders" />
+        <activity android:name=".ProductsClient.WebGuideProductOrders" />
+        <activity android:name=".ProductsClient.TensionControlProductOrders" />
+        <activity android:name=".ProductsClient.AutomationControlProductOrders" />
+        <activity android:name=".ProductsClient.AutomationControlProductInformation" />
+        <activity android:name=".ProductsClient.CableProductInformation" />
+        <activity android:name=".ProductsClient.CameraProductInformation" />
+        <activity android:name=".ProductsClient.TensionControlProductInformation" />
+        <activity android:name=".ProductsClient.WebGuideProductInformation" />
+        <activity android:name=".Documents" />
+        <activity android:name=".Services" />
+        <activity android:name=".ProductsClient.AutomationControl" />
+        <activity android:name=".ProductsClient.Cable" />
+        <activity android:name=".ProductsClient.Camera" />
+        <activity android:name=".ProductsClient.TensionControl" />
+        <activity android:name=".ProductsClient.WebGuide" />
+        <activity android:name=".MessageUsers" />
+        <activity
+            android:name=".Message"
+            android:parentActivityName=".HomePage"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="MESSAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".WorkersInformation" />
+        <activity
+            android:name=".HomePage"
+            android:launchMode="singleTop" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".PasswordForgotten" />
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_logo" />
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
+
+        <service
+            android:name=".MessageBackgroundService"
+            android:exported="false" />
+    </application>
+
+</manifest>

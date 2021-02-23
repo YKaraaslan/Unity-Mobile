@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#d00000</color>
+    <color name="colorPrimary">#ff23283a</color>
+    <color name="colorPrimaryDark">#1D2130</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_light">#575757</color>
+    <color name="gray">#E4E4E4</color>
+    <color name="grayDark">#ACACAC</color>
+    <color name="password">#ff39b6f1</color>
+    <color name="buttonActive">#FF4346D3</color>
+    <color name="buttonPassive">#FF605ED6</color>
+    <color name="red">#FF0000</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="lightgray">#ededed</color>
+    <color name="orange">#ffff8c00</color>
+    <color name="green">#00FF04</color>
+    <color name="message_background">#f7f6fb</color>
+    <color name="receiver">#daebff</color>
+    <color name="background">#F2F3F7</color>
+    <color name="red_text">#EE1C25</color>
+    <color name="receiver_transparent">#AEDAEBFF</color>
+    <color name="dark_green">#176EBA</color>
+
+</resources>

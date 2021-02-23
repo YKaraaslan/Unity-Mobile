@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="6dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp"
+    android:layout_marginTop="2dp"
+    tools:ignore="RtlSymmetry">
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_date_field"
+        android:text="@string/date_empty"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datetime">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/user_photo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/unity"
+            app:civ_border_color="@color/gray"
+            app:civ_border_width="1dp"
+            android:layout_marginEnd="5dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/text_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/message_receiver">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="10dp"
+                android:maxWidth="250dp"
+                android:minWidth="60dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:textSize="13sp"
+                android:text="@string/date_empty"
+                app:layout_constraintEnd_toEndOf="@+id/text"
+                app:layout_constraintTop_toBottomOf="@+id/text"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>

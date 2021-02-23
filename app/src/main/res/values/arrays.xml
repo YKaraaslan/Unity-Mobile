@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="authorization_options">
+        <item>Admin</item>
+        <item>Müdür</item>
+        <item>Çalışan</item>
+        <item>Finans</item>
+    </string-array>
+
+    <string-array name="what_to_do">
+        <item>Sil</item>
+        <item>Düzenle</item>
+        <item>Bilgi</item>
+    </string-array>
+
+    <string-array name="delete">
+        <item>Sil</item>
+    </string-array>
+
+    <string-array name="information">
+        <item>Bilgi</item>
+    </string-array>
+
+    <string-array name="image">
+        <item>Resmi değiştir</item>
+    </string-array>
+
+    <string-array name="delete_or_change">
+        <item>Sil</item>
+        <item>Düzenle</item>
+    </string-array>
+
+    <string-array name="delete_or_archive">
+        <item>Sil</item>
+        <item>Arşivle</item>
+    </string-array>
+
+    <string-array name="delete_or_return_back_to_messages">
+        <item>Sil</item>
+        <item>Mesajlara Geri Gönder</item>
+    </string-array>
+
+    <string-array name="message_alert_dialog">
+        <item>Benden Sil</item>
+        <item>Herkesten Sil</item>
+    </string-array>
+
+    <string-array name="message_alert_dialog_for_receiver">
+        <item>Sil</item>
+    </string-array>
+</resources>

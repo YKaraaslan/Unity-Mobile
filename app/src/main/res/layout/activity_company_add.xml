@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompanyAdd"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:background="@color/white"
+        app:logo="@drawable/chevron_left"
+        app:title="@string/add_company"
+        app:titleMarginStart="40dp"
+        tools:ignore="UnusedAttribute" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/tag"
+                android:drawableLeft="@drawable/tag"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/company_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/chevron_right"
+                android:drawableLeft="@drawable/chevron_right"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/city"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/ic_assign"
+                android:drawableLeft="@drawable/ic_assign"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/district"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/in_charge_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/contact"
+                android:drawableLeft="@drawable/contact"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/in_charge_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/board"
+                android:drawableLeft="@drawable/tag"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/position"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/mail"
+                android:drawableLeft="@drawable/mail"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/mail"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:drawableStart="@drawable/phone"
+                android:drawableLeft="@drawable/phone"
+                android:drawablePadding="10.0sp"
+                android:hint="@string/phone"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:textColor="@color/colorPrimaryDark"
+                tools:ignore="RtlHardcoded,UnusedAttribute"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/create_company"
+                android:onClick="AddCompany"
+                android:layout_gravity="center"
+                app:backgroundTint="@color/password"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

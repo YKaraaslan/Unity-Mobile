@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>updateTextTr</key>
+        <value>Güncelleme Mevcut</value>
+    </entry>
+    <entry>
+        <key>updateTextEn</key>
+        <value>Update Available</value>
+    </entry>
+    <entry>
+        <key>updateVisitApk</key>
+        <value>""</value>
+    </entry>
+    <entry>
+        <key>updateUrl</key>
+        <value>Welcome to my awesome app!</value>
+    </entry>
+    <entry>
+        <key>version</key>
+        <value>-.-.-</value>
+    </entry>
+</defaultsMap>
