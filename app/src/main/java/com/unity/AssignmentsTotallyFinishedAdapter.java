@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,12 +42,10 @@ public class AssignmentsTotallyFinishedAdapter extends RecyclerView.Adapter<Assi
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.description.setText(contactList.get(position).getNote());
 
-        storageReference.child("Users").child(String.valueOf(contactList.get(position).getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(contactList.get(position).getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String lastTitle = "(" + contactList.get(position).getId() + ") - " + contactList.get(position).getTitle();
         if (lastTitle.length() > 35){
@@ -82,9 +77,7 @@ public class AssignmentsTotallyFinishedAdapter extends RecyclerView.Adapter<Assi
             time = itemView.findViewById(R.id.contact_time);
             cardView = itemView.findViewById(R.id.contact_card);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition());
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition()));
         }
     }
 

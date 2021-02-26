@@ -3,38 +3,25 @@ package com.unity.HomeAssignmentsAll;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 import com.unity.AssignmentsCreateItems;
-import com.unity.AssignmentsDirect;
-import com.unity.AssignmentsUserDBItems;
-import com.unity.HomePageClient.HomeMyAssignmentsActiveAdapter;
-import com.unity.HomePageClient.HomeMyAssignmentsCompletedAdapter;
-import com.unity.HomePageClient.HomeMyAssignmentsCompletedCallBack;
 import com.unity.HomePageClient.HomeMyAssignmentsCompletedInformation;
-import com.unity.HomePageClient.HomeMyAssignmentsItems;
 import com.unity.R;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;

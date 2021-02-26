@@ -1,5 +1,6 @@
 package com.unity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -27,7 +27,6 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MessageAdapter extends FirestoreRecyclerAdapter<MessageReadItems, RecyclerView.ViewHolder> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MessageAdapter.OnItemClickListener listener;
     Context context;
     SharedPreferences sharedPreferences;
@@ -86,6 +85,7 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<MessageReadItems, R
             text_layout = itemView.findViewById(R.id.text_layout);
         }
 
+        @SuppressLint("SetTextI18n")
         void bind(int position) {
             if (getItem(position).getSituation().equalsIgnoreCase("deleted")){
                 text.setText("Bu mesaj silindi");
@@ -132,9 +132,7 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<MessageReadItems, R
                         .into(user_photo);
             }
 
-            user_photo.setOnClickListener(view -> {
-                listener.onUserImageClicked();
-            });
+            user_photo.setOnClickListener(view -> listener.onUserImageClicked());
 
             text_layout.setOnLongClickListener(view -> {
                 listener.onItemLongClick(getItem(position).getMessageID(), getItem(position).getSenderID(), getItem(position).getReceiverID(), getItem(position).getSituation());
@@ -159,6 +157,7 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<MessageReadItems, R
             text_layout = itemView.findViewById(R.id.text_layout);
         }
 
+        @SuppressLint("SetTextI18n")
         void bind(int position) {
             if (getItem(position).getSituation().equalsIgnoreCase("deleted")){
                 text.setText("Bu mesaj silindi");

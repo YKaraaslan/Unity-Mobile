@@ -1,15 +1,6 @@
 package com.unity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -21,8 +12,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -133,7 +129,7 @@ public class AssignmentNotes extends AppCompatActivity implements AssignmentNote
         if (notesList.get(position).getCreated_by_id() == sharedPreferences.getInt("id", 0)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.choose_what_to_do)
-                    .setItems(R.array.what_to_do, (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setItems(R.array.what_to_do, (dialog, which) -> {
                         if (which == 0){
                             delete(notesList.get(position).getId());
                         }
@@ -152,7 +148,7 @@ public class AssignmentNotes extends AppCompatActivity implements AssignmentNote
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.choose_what_to_do)
-                    .setItems(R.array.information, (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setItems(R.array.information, (dialog, which) -> {
                         if (which == 0){
                             openSeenBy(notesList.get(position).getId());
                         }

@@ -49,12 +49,10 @@ public class HomeFinanceAdapter extends RecyclerView.Adapter<HomeFinanceAdapter.
 
         holder.description.setText(contactList.get(position).getNote());
 
-        storageReference.child("Users").child(String.valueOf(contactList.get(position).getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(contactList.get(position).getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String dateTime = contactList.get(position).getFinishDate() + " " + contactList.get(position).getFinishTime();
         DateFormatter dateFormatter = new DateFormatter();
@@ -81,9 +79,7 @@ public class HomeFinanceAdapter extends RecyclerView.Adapter<HomeFinanceAdapter.
             time = itemView.findViewById(R.id.contact_time);
             cardView = itemView.findViewById(R.id.contact_card);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition());
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition()));
         }
     }
 }

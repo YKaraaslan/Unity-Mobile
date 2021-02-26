@@ -1,8 +1,8 @@
 package com.unity.ProductsClient;
 
 public class CameraProductInformationItems {
-    private int thumbnail;
-    private String title;
+    private final int thumbnail;
+    private final String title;
 
     public CameraProductInformationItems(int thumbnail, String title) {
         this.thumbnail = thumbnail;

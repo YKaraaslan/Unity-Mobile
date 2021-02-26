@@ -41,12 +41,10 @@ public class AssignmentNotesSeenByAdapter extends RecyclerView.Adapter<Assignmen
         holder.name.setText(contactList.get(position).getName());
         holder.description.setText(contactList.get(position).getPosition());
 
-        storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String dateTime = contactList.get(position).getSeen_date() + " " + contactList.get(position).getSeen_time();
         DateFormatter dateFormatter = new DateFormatter();

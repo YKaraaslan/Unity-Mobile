@@ -1,10 +1,6 @@
 package com.unity.HomePageClient;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,15 +13,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.r0adkll.slidr.Slidr;
-import com.unity.AssignmentNotesAdd;
 import com.unity.AssignmentNotesItems;
-import com.unity.Notifications;
 import com.unity.NotificationsForFinance;
 import com.unity.R;
 
@@ -43,6 +40,7 @@ public class HomeFinanceNotesAdd extends AppCompatActivity {
     int max_id = 0;
     Button note_button;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

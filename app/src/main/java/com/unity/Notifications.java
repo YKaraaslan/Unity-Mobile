@@ -2,7 +2,6 @@ package com.unity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,31 +17,22 @@ import java.util.Map;
 
 @SuppressLint("StaticFieldLeak")
 public class Notifications {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String token, key, title, message;
-    private String URL = "https://fcm.googleapis.com/fcm/send";
-    private String TAG = "Notifications";
+    private final String URL = "https://fcm.googleapis.com/fcm/send";
 
     public void sendNotification(String id, Context context, String titleReceived, String messageReceived) {
         title = titleReceived;
         message = messageReceived;
         db.collection("Tokens").document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    token = documentSnapshot.getString("token");
-                })
-                .addOnCompleteListener(task -> {
-                    getKey(context);
-                });
+                .addOnSuccessListener(documentSnapshot -> token = documentSnapshot.getString("token"))
+                .addOnCompleteListener(task -> getKey(context));
     }
 
     private void getKey(Context context) {
         db.collection("Keys").document("1").get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    key = documentSnapshot.getString("key");
-                })
-                .addOnCompleteListener(task -> {
-                    send(token, context);
-                });
+                .addOnSuccessListener(documentSnapshot -> key = documentSnapshot.getString("key"))
+                .addOnCompleteListener(task -> send(token, context));
     }
 
     private void send(String token, Context context) {

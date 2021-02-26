@@ -1,14 +1,5 @@
 package com.unity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -46,6 +37,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,7 +59,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,7 +83,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
     Uri pdfUri, photoUri;
     ProgressDialog progressDialog;
     ConstraintLayout pdf_layout;
-    TextView pdf_name, recorder_text;;
+    TextView pdf_name, recorder_text;
     EditText title;
     TextView date, time;
     boolean dateSet, timeSet, firstTimeEnteredForTitle = true, firstTimeEnteredToApp = true;
@@ -93,7 +92,6 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
 
     AutoCompleteTextView company;
 
-    Map<String, Integer> workers = new HashMap<>();
     Map<String, Integer> companies = new HashMap<>();
     Map<String, Integer> urgencies = new HashMap<>();
 
@@ -165,7 +163,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
         init();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void init() {
         db.collection("Assignments").orderBy("id", Query.Direction.DESCENDING).limit(1).addSnapshotListener((value, error) -> {
             assert value != null;
@@ -175,7 +173,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
             catch (Exception ex) { assignment_max_id = 1;}
         });
 
-        List<String> typeList = new ArrayList<String>();
+        List<String> typeList = new ArrayList<>();
 
         db.collection("AssignmentsType").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -183,7 +181,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
                     typeList.add(document.getString("value"));
                 }
 
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, typeList);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 assignment_type.setAdapter(dataAdapter);
                 try {
@@ -195,7 +193,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
 
         /* ------------------------------------------------------------------- */
 
-        List<String> companiesList = new ArrayList<String>();
+        List<String> companiesList = new ArrayList<>();
 
         AtomicReference<String> unity = new AtomicReference<>("");
         db.collection("Companies").get().addOnCompleteListener(task -> {
@@ -211,7 +209,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
                     }
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, companiesList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, companiesList);
                 company.setThreshold(1);
                 company.setAdapter(adapter);
                 try {
@@ -221,7 +219,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
             }
         });
 
-        List<String> urgencyList = new ArrayList<String>();
+        List<String> urgencyList = new ArrayList<>();
 
         db.collection("UrgencyTypes").orderBy("valueNumber", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(task -> {
@@ -231,7 +229,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
                     urgencyList.add(document.getString("value"));
                 }
 
-                ArrayAdapter<String> urgencyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, urgencyList);
+                ArrayAdapter<String> urgencyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, urgencyList);
                 urgencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 degree_of_urgency.setAdapter(urgencyAdapter);
             }
@@ -512,12 +510,14 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
         timePicker.show(getSupportFragmentManager(), "Saat");
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         date.setText(i2 + "/" + (i1+1) + "/" + i);
         dateSet = true;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onTimeSet(TimePicker timePicker, int i, int i1) {
         time.setText(i + ":" + i1);
@@ -542,6 +542,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startRecordingAudio() {
         if (!startedRecording) {
             try {
@@ -595,6 +596,7 @@ public class WorkersInformationAssignmentCreate extends AppCompatActivity implem
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startListening() {
         MediaPlayer player = new MediaPlayer();
         if (!startedRecording && !startedListening) {

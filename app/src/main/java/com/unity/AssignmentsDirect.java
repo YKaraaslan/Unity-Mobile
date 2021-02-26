@@ -1,30 +1,14 @@
 package com.unity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,11 +17,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -47,17 +36,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.r0adkll.slidr.Slidr;
 import com.unity.HomePageClient.HomeMyAssignmentsFinish;
 
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +58,7 @@ public class AssignmentsDirect extends AppCompatActivity implements AssignmentsD
     TextInputLayout explanationLayout;
     ImageView image;
     int id;
-    boolean pdf, photo, startedListening;
+    boolean pdf, photo;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     Intent intentRecevied;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -169,22 +155,10 @@ public class AssignmentsDirect extends AppCompatActivity implements AssignmentsD
             image_layout.setVisibility(View.VISIBLE);
 
             StorageReference storageReference = storage.getReference();
-            storageReference.child("Assignments").child(String.valueOf(id)).getDownloadUrl().addOnSuccessListener(uri -> {
-                Glide.with(this)
-                        .load(uri.toString())
-                        .centerCrop()
-                        .into(image);
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+            storageReference.child("Assignments").child(String.valueOf(id)).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(this)
+                    .load(uri.toString())
+                    .centerCrop()
+                    .into(image)).addOnCompleteListener(task -> progressBar.setVisibility(View.GONE)).addOnFailureListener(e -> progressBar.setVisibility(View.GONE));
         }
 
         pdfLayout.setOnClickListener(view -> openPdf());
@@ -221,9 +195,7 @@ public class AssignmentsDirect extends AppCompatActivity implements AssignmentsD
             startActivity(intent);
         });
 
-        notes.setOnClickListener(view -> {
-            openNotes();
-        });
+        notes.setOnClickListener(view -> openNotes());
 
         if (Objects.equals(intentRecevied.getStringExtra("note"), "")){
             explanationLayout.setVisibility(View.GONE);
@@ -444,7 +416,7 @@ public class AssignmentsDirect extends AppCompatActivity implements AssignmentsD
         if (workersList.get(position).getId() != intentRecevied.getIntExtra("inChargeID", 0) && workersList.get(position).getId() != sharedPreferences.getInt("id", 0)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.choose_what_to_do)
-                    .setItems(R.array.delete, (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setItems(R.array.delete, (dialog, which) -> {
                         if (!isConnected()){
                             Toast.makeText(this, "Internet baglantisi bulunamadi", Toast.LENGTH_SHORT).show();
                         }

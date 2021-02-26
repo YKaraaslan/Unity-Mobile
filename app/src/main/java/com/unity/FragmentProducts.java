@@ -58,25 +58,15 @@ public class FragmentProducts extends Fragment {
     }
 
     private void init() {
-        webGuide.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), WebGuide.class));
-        });
+        webGuide.setOnClickListener(view -> startActivity(new Intent(getContext(), WebGuide.class)));
 
-        tensionControl.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), TensionControl.class));
-        });
+        tensionControl.setOnClickListener(view -> startActivity(new Intent(getContext(), TensionControl.class)));
 
-        camera.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), Camera.class));
-        });
+        camera.setOnClickListener(view -> startActivity(new Intent(getContext(), Camera.class)));
 
-        cable.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), Cable.class));
-        });
+        cable.setOnClickListener(view -> startActivity(new Intent(getContext(), Cable.class)));
 
-        automationControl.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), AutomationControl.class));
-        });
+        automationControl.setOnClickListener(view -> startActivity(new Intent(getContext(), AutomationControl.class)));
     }
 
     @Override
@@ -106,6 +96,7 @@ public class FragmentProducts extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

@@ -1,9 +1,13 @@
 package com.unity.HomeAssignmentsAll;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,36 +16,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.unity.AssignmentsCreateItems;
 import com.unity.AssignmentsDeleteItems;
 import com.unity.AssignmentsDirect;
 import com.unity.AssignmentsUpdate;
-import com.unity.AssignmentsUserDBItems;
-import com.unity.HomePageClient.HomeMyAssignmentsActiveAdapter;
-import com.unity.HomePageClient.HomeMyAssignmentsActiveCallBack;
-import com.unity.HomePageClient.HomeMyAssignmentsItems;
 import com.unity.Notifications;
 import com.unity.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -155,20 +145,17 @@ public class HomeAssignmentsActive extends Fragment {
 
     private void delete(DocumentSnapshot documentSnapshot) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle(R.string.are_you_sure_to_delete_assignment).setMessage(R.string.deleted_assignments_cannot_return).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                db.collection("Assignments").document(String.valueOf(Objects.requireNonNull(documentSnapshot.getLong("id")).intValue())).collection("Assigned").get().addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                        String titleString = sharedPreferences.getString("name", "") + " dahil olduğunuz görevi sildi.";
-                        String message = "Silinen Görev: " + documentSnapshot.getString("title");
-                        Notifications notifications = new Notifications();
-                        notifications.sendNotification(String.valueOf(Objects.requireNonNull(documentSnapshot.getLong("userID")).intValue()), requireContext(), titleString, message);
-                    }
-                });
+        builder.setTitle(R.string.are_you_sure_to_delete_assignment).setMessage(R.string.deleted_assignments_cannot_return).setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+            db.collection("Assignments").document(String.valueOf(Objects.requireNonNull(documentSnapshot.getLong("id")).intValue())).collection("Assigned").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                for (DocumentSnapshot documentSnapshot1 : queryDocumentSnapshots){
+                    String titleString = sharedPreferences.getString("name", "") + " dahil olduğunuz görevi sildi.";
+                    String message = "Silinen Görev: " + documentSnapshot1.getString("title");
+                    Notifications notifications = new Notifications();
+                    notifications.sendNotification(String.valueOf(Objects.requireNonNull(documentSnapshot1.getLong("userID")).intValue()), requireContext(), titleString, message);
+                }
+            });
 
-                startDeleting(documentSnapshot);
-            }
+            startDeleting(documentSnapshot);
         }).setNegativeButton(R.string.cancel, (dialogInterface, i) -> { });
         builder.create().show();
     }

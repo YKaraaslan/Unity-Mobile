@@ -1,27 +1,18 @@
 package com.unity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.r0adkll.slidr.Slidr;
 
 import java.util.ArrayList;
@@ -81,9 +72,7 @@ public class AssignmentNotesSeenBy extends AppCompatActivity implements Assignme
             }
             adapter.notifyDataSetChanged();
             progressBar.setVisibility(View.GONE);
-        }).addOnSuccessListener(queryDocumentSnapshots -> {
-            progressBar.setVisibility(View.GONE);
-        });
+        }).addOnSuccessListener(queryDocumentSnapshots -> progressBar.setVisibility(View.GONE));
     }
 
 

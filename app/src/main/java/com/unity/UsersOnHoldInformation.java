@@ -138,14 +138,11 @@ public class UsersOnHoldInformation extends AppCompatActivity {
             deny.setVisibility(View.VISIBLE);
         }
 
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intents = new Intent(UsersOnHoldInformation.this, UsersImageViewer.class);
-                intents.putExtra("id", id);
-                intents.putExtra("document", "UsersOnHold");
-                startActivity(intents);
-            }
+        image.setOnClickListener(view -> {
+            Intent intents = new Intent(UsersOnHoldInformation.this, UsersImageViewer.class);
+            intents.putExtra("id", id);
+            intents.putExtra("document", "UsersOnHold");
+            startActivity(intents);
         });
     }
 
@@ -187,9 +184,8 @@ public class UsersOnHoldInformation extends AppCompatActivity {
                     Objects.requireNonNull(bitmap).compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                     String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Photo", null);
 
-                    storageReference.child("Users").child(constUsersMaxID + ".jpg").putFile(Uri.parse(path)).addOnSuccessListener(taskSnapshot -> {
-                        storageReference.child("UsersOnHold").child(String.valueOf(id)).delete();
-                    });
+                    storageReference.child("Users").child(constUsersMaxID + ".jpg").putFile(Uri.parse(path))
+                            .addOnSuccessListener(taskSnapshot -> storageReference.child("UsersOnHold").child(String.valueOf(id)).delete());
 
                     NotificationsForUsersToSignUp notifications = new NotificationsForUsersToSignUp();
                     notifications.sendNotification(String.valueOf(id), this, title, message);
@@ -199,10 +195,8 @@ public class UsersOnHoldInformation extends AppCompatActivity {
     private void deleteUserFromUsersOnHoldForConfirmation() {
         db.collection("UsersOnHold").document(String.valueOf(id))
                 .delete()
-                .addOnSuccessListener(aVoid -> {
-                    db.collection("UsersOnHoldTokens").document(String.valueOf(id))
-                            .get().addOnCompleteListener(task -> addTokentoUsers(task.getResult().getString("token")));
-                });
+                .addOnSuccessListener(aVoid -> db.collection("UsersOnHoldTokens").document(String.valueOf(id))
+                        .get().addOnCompleteListener(task -> addTokentoUsers(task.getResult().getString("token"))));
     }
 
     private void addTokentoUsers(String token) {

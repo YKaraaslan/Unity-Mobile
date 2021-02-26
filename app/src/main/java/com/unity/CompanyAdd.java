@@ -64,9 +64,7 @@ public class CompanyAdd extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(getString(R.string.company_add_text))
-                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> {
-                    Add();
-                }).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
+                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> Add()).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
 
         }).show();
     }

@@ -1,9 +1,6 @@
 package com.unity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,6 +37,7 @@ public class AssignmentNotesAdd extends AppCompatActivity {
     int max_id = 0;
     Button note_button;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +95,7 @@ public class AssignmentNotesAdd extends AppCompatActivity {
                 documentReference.update("note", note.getText().toString());
                 documentReference.update("updated", true);
                 documentReference.update("dateProcess", date);
-                documentReference.update("timeProcess", time).addOnCompleteListener(task -> {
-                    sendNotificationsForUpdate();
-                });
+                documentReference.update("timeProcess", time).addOnCompleteListener(task -> sendNotificationsForUpdate());
 
             }).setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> { });
             builder.create().show();
@@ -113,9 +113,7 @@ public class AssignmentNotesAdd extends AppCompatActivity {
                     Objects.requireNonNull(note.getText()).toString().trim(), date, time, false, false, "", "");
 
             db.collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0))).collection("Notes").document(String.valueOf(max_id))
-                    .set(item).addOnCompleteListener(task -> {
-                sendNotifications();
-            });
+                    .set(item).addOnCompleteListener(task -> sendNotifications());
         }
     }
 

@@ -1,7 +1,5 @@
 package com.unity;
 
-import com.google.firebase.firestore.FieldValue;
-
 import java.io.Serializable;
 
 public class FragmentContactItem implements Serializable {

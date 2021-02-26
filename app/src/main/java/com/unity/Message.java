@@ -1,19 +1,12 @@
 package com.unity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -58,8 +54,9 @@ public class Message extends AppCompatActivity {
     ConstraintLayout info_layout;
     ImageView online_image;
     boolean zeroMessage = true, newDate = false, textChanged = false;
-    ListenerRegistration unreadMessagesRegistration, seenRegistration;
+    ListenerRegistration unreadMessagesRegistration;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,9 +142,7 @@ public class Message extends AppCompatActivity {
                 MessageItems messageItems = new MessageItems(message, sharedPreferences.getInt("id", 0), getIntent().getIntExtra("userID", 0),
                         false, false, false, dateSent, "", FieldValue.serverTimestamp(), newDate, "active", "", false);
 
-                collectionReferenceMessageOurs.add(messageItems).addOnSuccessListener(documentReferenceForMessageSent -> {
-                    collectionReferenceMessageOurs.document(documentReferenceForMessageSent.getId()).update("messageID", documentReferenceForMessageSent.getId());
-                }).addOnCompleteListener(task -> {
+                collectionReferenceMessageOurs.add(messageItems).addOnSuccessListener(documentReferenceForMessageSent -> collectionReferenceMessageOurs.document(documentReferenceForMessageSent.getId()).update("messageID", documentReferenceForMessageSent.getId())).addOnCompleteListener(task -> {
                     collectionReferenceMessageTheirs.document(task.getResult().getId()).set(messageItems);
 
                     collectionReferenceMessageTheirs.document(task.getResult().getId()).update("messageID", task.getResult().getId()).addOnSuccessListener(aVoid ->

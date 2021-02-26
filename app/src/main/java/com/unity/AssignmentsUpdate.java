@@ -76,7 +76,6 @@ import java.util.Objects;
 public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     Toolbar toolbar;
     int STORAGE_PERMISSION_CODE = 1, CAMERA_PERMISSION_CODE = 10, PICK_IMAGE = 2, CAMERA_PIC_REQUEST = 100, PICKFILE_REQUEST_CODE = 21, AUDIO_PERMISSION_CODE = 30;
-    ;
     Spinner person, assignment_type, degree_of_urgency;
     ImageView imageView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -96,7 +95,7 @@ public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDi
     String inChargeOld;
     int assigned_max_id = 0;
     TextView date, time;
-    boolean dateSet, timeSet, firstTimeEnteredForTitle = true, firstTimeEnteredToApp = true;
+    boolean firstTimeEnteredForTitle = true, firstTimeEnteredToApp = true;
     boolean startedListening, recordedVoice, startedRecording, recordExists;
 
     AutoCompleteTextView company;
@@ -199,7 +198,7 @@ public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDi
         pdf_layout.setOnClickListener(view -> openPdf());
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void init() {
         List<String> typeList = new ArrayList<>();
 
@@ -311,6 +310,7 @@ public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDi
         fab_listener.setBackgroundTintList(ColorStateList.valueOf(Color.DKGRAY));
     }
 
+    @SuppressLint("SetTextI18n")
     private void setValues() {
         title.setText(getIntent().getStringExtra("title"));
         note.setText(getIntent().getStringExtra("note"));
@@ -728,6 +728,7 @@ public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDi
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startRecordingAudio() {
         if (!startedRecording) {
             try {
@@ -780,6 +781,7 @@ public class AssignmentsUpdate extends AppCompatActivity implements DatePickerDi
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startListening() {
         MediaPlayer player = new MediaPlayer();
         if (!startedRecording) {

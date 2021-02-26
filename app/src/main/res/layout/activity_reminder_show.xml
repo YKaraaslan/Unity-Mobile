@@ -98,7 +98,7 @@
             android:text="@string/date_reminder"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="MissingConstraints,RtlSymmetry" />
 
         <TextView
             android:id="@+id/date_end"

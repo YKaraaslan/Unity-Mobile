@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,8 +20,6 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import com.unity.AssignmentsUserDBItems;
 import com.unity.DateFormatter;
 import com.unity.R;
-
-import java.util.List;
 
 public class HomeMyAssignmentsCompletedAdapter extends FirestoreRecyclerAdapter<AssignmentsUserDBItems, HomeMyAssignmentsCompletedAdapter.RecyclerViewHolder> {
     Context context;
@@ -53,12 +49,10 @@ public class HomeMyAssignmentsCompletedAdapter extends FirestoreRecyclerAdapter<
         holder.description.setText(model.getNote());
 
         try{
-            storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-                Glide.with(context)
-                        .load(uri.toString())
-                        .centerCrop()
-                        .into(holder.image);
-            }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+            storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                    .load(uri.toString())
+                    .centerCrop()
+                    .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
         }
         catch (Exception ignored) { }
 

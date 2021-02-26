@@ -15,31 +15,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotificationsMessage {
-        private FirebaseFirestore db = FirebaseFirestore.getInstance();
+        private final FirebaseFirestore db = FirebaseFirestore.getInstance();
         private String token, key, title, message, ourID;
-        private String URL = "https://fcm.googleapis.com/fcm/send";
+        private final String URL = "https://fcm.googleapis.com/fcm/send";
 
         public void sendNotification(String id, Context context, String titleReceived, String messageReceived, String ourIDReceived) {
             this.ourID = ourIDReceived;
             title = titleReceived;
             message = messageReceived;
             db.collection("Tokens").document(id).get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        token = documentSnapshot.getString("token");
-                    })
-                    .addOnCompleteListener(task -> {
-                        getKey(context);
-                    });
+                    .addOnSuccessListener(documentSnapshot -> token = documentSnapshot.getString("token"))
+                    .addOnCompleteListener(task -> getKey(context));
         }
 
         private void getKey(Context context) {
             db.collection("Keys").document("1").get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        key = documentSnapshot.getString("key");
-                    })
-                    .addOnCompleteListener(task -> {
-                        send(token, context);
-                    });
+                    .addOnSuccessListener(documentSnapshot -> key = documentSnapshot.getString("key"))
+                    .addOnCompleteListener(task -> send(token, context));
         }
 
         private void send(String token, Context context) {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mikhaellopez.circularimageview.CircularImageView;
-import com.unity.HomePageClient.HomeMyAssignmentsItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +47,10 @@ public class MessageUsersAdapter extends RecyclerView.Adapter<MessageUsersAdapte
         String convTime = dateFormatter.format(dateTime);
         holder.time.setText(convTime);*/
 
-        storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
     }
 
     @Override

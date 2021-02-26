@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,23 +37,17 @@ public class OrdersTensionControlBrake extends Fragment {
             clipper.setVisibility(View.VISIBLE);
         }
 
-        magnetic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    brakeTypeLayout.setVisibility(View.VISIBLE);
-                    clipper.setVisibility(View.GONE);
-                }
+        magnetic.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b){
+                brakeTypeLayout.setVisibility(View.VISIBLE);
+                clipper.setVisibility(View.GONE);
             }
         });
 
-        pneumatic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    brakeTypeLayout.setVisibility(View.GONE);
-                    clipper.setVisibility(View.VISIBLE);
-                }
+        pneumatic.setOnCheckedChangeListener((compoundButton, b) -> {
+            if(b){
+                brakeTypeLayout.setVisibility(View.GONE);
+                clipper.setVisibility(View.VISIBLE);
             }
         });
 

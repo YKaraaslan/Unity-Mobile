@@ -5,40 +5,27 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -46,12 +33,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class FragmentContactAdapter extends FirestoreRecyclerAdapter<FragmentContactItem, FragmentContactAdapter.RecyclerViewHolder> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FragmentContactAdapter.OnItemClickListener listener;
     Context context;
     SharedPreferences sharedPreferences;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    ListenerRegistration registration;
 
     public FragmentContactAdapter(@NonNull FirestoreRecyclerOptions<FragmentContactItem> options, Context context) {
         super(options);
@@ -66,6 +52,7 @@ public class FragmentContactAdapter extends FirestoreRecyclerAdapter<FragmentCon
         return new FragmentContactAdapter.RecyclerViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull FragmentContactItem model) {
         holder.name.setText(model.getUser_name());
@@ -94,12 +81,10 @@ public class FragmentContactAdapter extends FirestoreRecyclerAdapter<FragmentCon
             holder.description.setTypeface(null, Typeface.NORMAL);
         }
 
-        storageReference.child("Users").child(String.valueOf(model.getUserID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(model.getUserID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         db.collection("Users").document(String.valueOf(sharedPreferences.getInt("id", 0))).collection("MessagesToRead")
                 .whereEqualTo("senderID", model.getSenderID())
@@ -182,8 +167,6 @@ public class FragmentContactAdapter extends FirestoreRecyclerAdapter<FragmentCon
     }
 
     public String format(String date) {
-
-        String language = Locale.getDefault().getLanguage();
         String convTime = null;
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

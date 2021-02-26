@@ -1,7 +1,5 @@
 package com.unity;
 
-import com.google.firebase.firestore.FieldValue;
-
 public class MessageReadItems {
     public String message;
     public int senderID, receiverID;

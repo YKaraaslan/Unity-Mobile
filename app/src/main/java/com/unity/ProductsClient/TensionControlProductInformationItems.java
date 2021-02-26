@@ -1,8 +1,8 @@
 package com.unity.ProductsClient;
 
 public class TensionControlProductInformationItems {
-    private int thumbnail;
-    private String title;
+    private final int thumbnail;
+    private final String title;
 
     public TensionControlProductInformationItems(int thumbnail, String title) {
         this.thumbnail = thumbnail;

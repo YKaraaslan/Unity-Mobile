@@ -1,12 +1,5 @@
 package com.unity.HomePageClient;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,8 +14,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,7 +31,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.r0adkll.slidr.Slidr;
@@ -152,12 +150,10 @@ public class HomeMyAssignmentsCompletedInformation extends AppCompatActivity imp
         if (intent.getBooleanExtra("photo", false)){
             imageLayout.setVisibility(View.VISIBLE);
             StorageReference storageReference = storage.getReference();
-            storageReference.child("Assignments").child(String.valueOf(intent.getIntExtra("id", 0))).getDownloadUrl().addOnSuccessListener(uri -> {
-                Glide.with(this)
-                        .load(uri)
-                        .centerCrop()
-                        .into(image);
-            }).addOnCompleteListener(task -> progressBar.setVisibility(View.GONE)).addOnFailureListener(e -> progressBar.setVisibility(View.GONE));
+            storageReference.child("Assignments").child(String.valueOf(intent.getIntExtra("id", 0))).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(this)
+                    .load(uri)
+                    .centerCrop()
+                    .into(image)).addOnCompleteListener(task -> progressBar.setVisibility(View.GONE)).addOnFailureListener(e -> progressBar.setVisibility(View.GONE));
         }
         else if (intent.getBooleanExtra("pdf", false)){
             pdfLayout.setVisibility(View.VISIBLE);
@@ -229,9 +225,7 @@ public class HomeMyAssignmentsCompletedInformation extends AppCompatActivity imp
             }
         });
 
-        notes.setOnClickListener(view -> {
-            openNotes();
-        });
+        notes.setOnClickListener(view -> openNotes());
 
         if (getIntent().getBooleanExtra("finance", false)){
             button_reactivate.setVisibility(View.GONE);
@@ -260,24 +254,20 @@ public class HomeMyAssignmentsCompletedInformation extends AppCompatActivity imp
                     }
                 });
 
-                documentReference.update("status", "completed").addOnCompleteListener(task -> {
-                    db.collection("Users").document(String.valueOf(getIntent().getIntExtra("createdByID", 0)))
-                            .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0))).update("status", "completed")
-                            .addOnCompleteListener(task1 -> {
-                                setResult(RESULT_OK);
-                                Toast.makeText(HomeMyAssignmentsCompletedInformation.this, "Görev kaldırıldı.", Toast.LENGTH_SHORT).show();
-                                finish();
-                            });
-                });
+                documentReference.update("status", "completed").addOnCompleteListener(task -> db.collection("Users").document(String.valueOf(getIntent().getIntExtra("createdByID", 0)))
+                        .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0))).update("status", "completed")
+                        .addOnCompleteListener(task1 -> {
+                            setResult(RESULT_OK);
+                            Toast.makeText(HomeMyAssignmentsCompletedInformation.this, "Görev kaldırıldı.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }));
             }).setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> { });
             builder.create().show();
         });
 
         button_financially_finish.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeMyAssignmentsCompletedInformation.this);
-            builder.setMessage(R.string.are_you_sure_to_finish).setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                FinanciallyFinish();
-            }).setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> { });
+            builder.setMessage(R.string.are_you_sure_to_finish).setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> FinanciallyFinish()).setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> { });
             builder.create().show();
         });
 
@@ -347,23 +337,18 @@ public class HomeMyAssignmentsCompletedInformation extends AppCompatActivity imp
             DocumentReference documentReference = db.collection("Assignments").document(String.valueOf(intent.getIntExtra("id", 0)));
             CollectionReference collectionReference = documentReference.collection("Assigned");
 
-            collectionReference.whereEqualTo("deleted", false).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for (DocumentSnapshot docUsersAssigned : queryDocumentSnapshots){
-                        DocumentReference userDoc = db.collection("Users").document(String.valueOf(docUsersAssigned.getLong("userID").intValue()))
-                                .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0)));
+            collectionReference.whereEqualTo("deleted", false).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                for (DocumentSnapshot docUsersAssigned : queryDocumentSnapshots){
+                    DocumentReference userDoc = db.collection("Users").document(String.valueOf(docUsersAssigned.getLong("userID").intValue()))
+                            .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0)));
 
-                        userDoc.update("status", "active");
-                    }
+                    userDoc.update("status", "active");
                 }
             });
 
             documentReference.update("status", "active")
-                    .addOnSuccessListener(aVoid -> sendNotifications()).addOnCompleteListener(task -> {
-                db.collection("Users").document(String.valueOf(getIntent().getIntExtra("createdByID", 0)))
-                        .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0))).update("status", "active");
-            });
+                    .addOnSuccessListener(aVoid -> sendNotifications()).addOnCompleteListener(task -> db.collection("Users").document(String.valueOf(getIntent().getIntExtra("createdByID", 0)))
+                            .collection("Assignments").document(String.valueOf(getIntent().getIntExtra("id", 0))).update("status", "active"));
         }).setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> { });
         builder.create().show();
     }

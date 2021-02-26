@@ -55,9 +55,7 @@ public class TensionControlProductInformationAdapter extends RecyclerView.Adapte
             title = itemView.findViewById(R.id.title);
             cardView = itemView.findViewById(R.id.cardView);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition(), image, title);
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition(), image, title));
         }
     }
 }

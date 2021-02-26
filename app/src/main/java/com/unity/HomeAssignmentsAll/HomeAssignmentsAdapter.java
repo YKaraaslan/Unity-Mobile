@@ -35,12 +35,10 @@ public class HomeAssignmentsAdapter extends FirestoreRecyclerAdapter<Assignments
     protected void onBindViewHolder(@NonNull HomeAssignmentsAdapter.RecyclerViewHolder holder, int position, @NonNull AssignmentsCreateItems model) {
         holder.description.setText(model.getNote());
 
-        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String lastTitle = "(" + model.getId() + ") - " + model.getTitle();
         if (lastTitle.length() > 35){

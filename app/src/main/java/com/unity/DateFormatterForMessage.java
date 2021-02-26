@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class DateFormatterForMessage {
     public String format(String date) {
-
-        String language = Locale.getDefault().getLanguage();
         String convTime = null;
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

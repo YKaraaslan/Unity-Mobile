@@ -1,8 +1,8 @@
 package com.unity.ProductsClient;
 
 public class WebGuideItems {
-    private int thumbnail;
-    private String title;
+    private final int thumbnail;
+    private final String title;
 
     public WebGuideItems(int thumbnail, String title) {
         this.thumbnail = thumbnail;

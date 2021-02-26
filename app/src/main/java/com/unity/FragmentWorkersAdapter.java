@@ -1,8 +1,6 @@
 package com.unity;
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,7 +21,6 @@ import com.google.firebase.storage.StorageReference;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class FragmentWorkersAdapter extends FirestoreRecyclerAdapter<FragmentWorkersItem, FragmentWorkersAdapter.RecyclerViewHolder> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private OnItemClickListener listener;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     Context context;
@@ -56,12 +51,10 @@ public class FragmentWorkersAdapter extends FirestoreRecyclerAdapter<FragmentWor
         holder.name.setText(model.getName());
         holder.description.setText(model.getPosition());
 
-        storageReference.child("Users").child(String.valueOf(model.getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(model.getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String dateTime = model.getOnline();
         try{

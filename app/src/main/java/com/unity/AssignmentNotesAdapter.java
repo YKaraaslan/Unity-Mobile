@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,12 +41,10 @@ public class AssignmentNotesAdapter extends RecyclerView.Adapter<AssignmentNotes
         holder.name.setText(contactList.get(position).getCreated_by());
         holder.description.setText(contactList.get(position).getNote());
 
-        storageReference.child("Users").child(String.valueOf(contactList.get(position).getCreated_by_id())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(contactList.get(position).getCreated_by_id())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String dateTime = contactList.get(position).getDate() + " " + contactList.get(position).getTime();
         DateFormatter dateFormatter = new DateFormatter();

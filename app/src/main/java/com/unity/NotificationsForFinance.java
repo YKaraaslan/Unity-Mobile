@@ -15,10 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotificationsForFinance {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String topic, key, title, message;
-    private String URL = "https://fcm.googleapis.com/fcm/send";
-    private String TAG = "Notifications";
+    private final String URL = "https://fcm.googleapis.com/fcm/send";
 
     public void sendNotification(Context context, String titleReceived, String messageReceived) {
         title = titleReceived;
@@ -29,12 +28,8 @@ public class NotificationsForFinance {
 
     private void getKey(Context context) {
         db.collection("Keys").document("1").get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    key = documentSnapshot.getString("key");
-                })
-                .addOnCompleteListener(task -> {
-                    send(topic, context);
-                });
+                .addOnSuccessListener(documentSnapshot -> key = documentSnapshot.getString("key"))
+                .addOnCompleteListener(task -> send(topic, context));
     }
 
     private void send(String topic, Context context) {

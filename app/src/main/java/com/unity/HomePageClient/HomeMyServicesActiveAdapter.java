@@ -62,9 +62,7 @@ public class HomeMyServicesActiveAdapter extends RecyclerView.Adapter<HomeMyServ
             time = itemView.findViewById(R.id.contact_time);
             cardView = itemView.findViewById(R.id.contact_card);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition(), image, name, description, time);
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition(), image, name, description, time));
         }
     }
 }

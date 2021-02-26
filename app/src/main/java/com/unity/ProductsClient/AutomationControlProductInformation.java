@@ -1,10 +1,5 @@
 package com.unity.ProductsClient;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -14,6 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.unity.Documents;
@@ -54,9 +54,7 @@ public class AutomationControlProductInformation extends AppCompatActivity imple
                 Toast.makeText(this, getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
         });
 
-        fab_orders.setOnClickListener(view -> {
-            startActivity(new Intent(AutomationControlProductInformation.this, AutomationControlProductOrders.class));
-        });
+        fab_orders.setOnClickListener(view -> startActivity(new Intent(AutomationControlProductInformation.this, AutomationControlProductOrders.class)));
 
         setupRecyclerView();
         init();

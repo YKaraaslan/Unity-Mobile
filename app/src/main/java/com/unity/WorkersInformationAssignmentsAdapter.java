@@ -40,12 +40,10 @@ public class WorkersInformationAssignmentsAdapter extends FirestoreRecyclerAdapt
     protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull AssignmentsUserDBItems model) {
         holder.description.setText(model.getNote());
 
-        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        });
+        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image));
 
         String lastTitle = "(" + model.getAssignmentID() + ") - " + model.getTitle();
         if (lastTitle.length() > 30){

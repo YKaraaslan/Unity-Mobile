@@ -3,8 +3,8 @@ package com.unity;
 import java.io.Serializable;
 
 public class ListOfPeopleItems implements Serializable {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public ListOfPeopleItems(int id, String name) {
         this.id = id;

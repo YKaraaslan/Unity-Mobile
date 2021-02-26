@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,14 +26,13 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class MessageArchiveAdapter  extends FirestoreRecyclerAdapter<FragmentContactItem, MessageArchiveAdapter.RecyclerViewHolder> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MessageArchiveAdapter.OnItemClickListener listener;
     Context context;
     SharedPreferences sharedPreferences;
@@ -54,6 +51,7 @@ public class MessageArchiveAdapter  extends FirestoreRecyclerAdapter<FragmentCon
         return new MessageArchiveAdapter.RecyclerViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull MessageArchiveAdapter.RecyclerViewHolder holder, int position, @NonNull FragmentContactItem model) {
         holder.name.setText(model.getUser_name());
@@ -76,12 +74,10 @@ public class MessageArchiveAdapter  extends FirestoreRecyclerAdapter<FragmentCon
         holder.unread_messages.setText(" Arşiv " );
         holder.unread_messages.setVisibility(View.VISIBLE);
 
-        storageReference.child("Users").child(String.valueOf(model.getUserID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(model.getUserID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String finalLastMessage = lastMessage;
         db.collection("Users").document(String.valueOf(model.getSenderID()))
@@ -146,8 +142,6 @@ public class MessageArchiveAdapter  extends FirestoreRecyclerAdapter<FragmentCon
     }
 
     public String format(String date) {
-
-        String language = Locale.getDefault().getLanguage();
         String convTime = null;
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

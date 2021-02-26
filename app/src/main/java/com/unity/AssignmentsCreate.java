@@ -86,8 +86,7 @@ public class AssignmentsCreate extends AppCompatActivity implements DatePickerDi
     TextView pdf_name, recorder_text;
     EditText title;
     FloatingActionButton camera;
-    //TextView date, time;
-    boolean dateSet, timeSet, firstTimeEnteredForTitle = true, firstTimeEnteredToApp = true;
+    boolean firstTimeEnteredForTitle = true, firstTimeEnteredToApp = true;
     boolean startedListening, recordedVoice, startedRecording;
     FloatingActionButton fab_recorder, fab_listener;
 
@@ -590,6 +589,7 @@ public class AssignmentsCreate extends AppCompatActivity implements DatePickerDi
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startRecordingAudio() {
         if (!startedRecording) {
             try {
@@ -642,6 +642,7 @@ public class AssignmentsCreate extends AppCompatActivity implements DatePickerDi
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void startListening() {
         MediaPlayer player = new MediaPlayer();
         if (!startedRecording && !startedListening) {

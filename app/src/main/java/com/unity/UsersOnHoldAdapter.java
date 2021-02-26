@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,12 +40,10 @@ public class UsersOnHoldAdapter extends RecyclerView.Adapter<UsersOnHoldAdapter.
     public void onBindViewHolder(@NonNull UsersOnHoldAdapter.RecyclerViewHolder holder, int position) {
         holder.name.setText(contactList.get(position).getName());
 
-        storageReference.child("UsersOnHold").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("UsersOnHold").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
     }
 
     @Override
@@ -66,9 +63,7 @@ public class UsersOnHoldAdapter extends RecyclerView.Adapter<UsersOnHoldAdapter.
             cardView = itemView.findViewById(R.id.workers_card);
             image = itemView.findViewById(R.id.workers_image);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition());
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition()));
         }
     }
 }

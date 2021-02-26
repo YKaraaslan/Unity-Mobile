@@ -1,13 +1,6 @@
 package com.unity;
 
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +15,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -125,16 +124,10 @@ public class ListOfPeople extends AppCompatActivity implements ListOfPeopleCallB
         db.collection("Users").document(String.valueOf(receivedID)).collection("Assignments").document(String.valueOf(intent.getIntExtra("id", 0)))
                 .set(new AssignmentsUserDBItems(getIntent().getStringExtra("title"), getIntent().getStringExtra("note"), "active", date, time, "", "", "",
                         intent.getIntExtra("id", 0), getIntent().getIntExtra("inChargeID", 0), getIntent().getIntExtra("createdByID", 0)))
-                .addOnCompleteListener(task -> {
-                    db.collection("Assignments").document(String.valueOf(intent.getIntExtra("id", 0))).collection("Assigned").
-                            document(String.valueOf(assigned_max_id)).set(new ListOfPeopleAssigningItems(assigned_max_id, receivedID, name, date, time,
-                            sharedPreferences.getString("name", "------"), sharedPreferences.getInt("id", 0), false, "" , "", "", "",false))
-                            .addOnSuccessListener(aVoid -> {
-                                sendNotificationToWhomIsChosen(String.valueOf(receivedID));
-                            }).addOnCompleteListener(task1 -> {
-                        sendNotificationToTheRest(name, receivedID);
-                    });
-                });
+                .addOnCompleteListener(task -> db.collection("Assignments").document(String.valueOf(intent.getIntExtra("id", 0))).collection("Assigned").
+                        document(String.valueOf(assigned_max_id)).set(new ListOfPeopleAssigningItems(assigned_max_id, receivedID, name, date, time,
+                        sharedPreferences.getString("name", "------"), sharedPreferences.getInt("id", 0), false, "" , "", "", "",false))
+                        .addOnSuccessListener(aVoid -> sendNotificationToWhomIsChosen(String.valueOf(receivedID))).addOnCompleteListener(task1 -> sendNotificationToTheRest(name, receivedID)));
     }
 
     private void sendNotificationToWhomIsChosen(String receivedID) {
@@ -175,9 +168,7 @@ public class ListOfPeople extends AppCompatActivity implements ListOfPeopleCallB
 
         builder.setMessage(getString(R.string.list_of_people_text) + " " + name)
                 .setTitle(getString(R.string.list_of_people_title))
-                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> {
-                    Assign(id, name);
-                }).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
+                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> Assign(id, name)).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
 
         }).show();
     }

@@ -54,9 +54,7 @@ public class AutomationControlProductInformationAdapter extends RecyclerView.Ada
             title = itemView.findViewById(R.id.title);
             cardView = itemView.findViewById(R.id.cardView);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition(), image, title);
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition(), image, title));
         }
     }
 }

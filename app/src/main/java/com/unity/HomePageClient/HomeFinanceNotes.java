@@ -158,7 +158,7 @@ public class HomeFinanceNotes extends AppCompatActivity implements AssignmentNot
         if (notesList.get(position).getCreated_by_id() == sharedPreferences.getInt("id", 0)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.choose_what_to_do)
-                    .setItems(R.array.what_to_do, (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setItems(R.array.what_to_do, (dialog, which) -> {
                         if (which == 0){
                             delete(notesList.get(position).getId());
                         }
@@ -177,7 +177,7 @@ public class HomeFinanceNotes extends AppCompatActivity implements AssignmentNot
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.choose_what_to_do)
-                    .setItems(R.array.information, (DialogInterface.OnClickListener) (dialog, which) -> {
+                    .setItems(R.array.information, (dialog, which) -> {
                         if (which == 0){
                             openSeenBy(notesList.get(position).getId());
                         }

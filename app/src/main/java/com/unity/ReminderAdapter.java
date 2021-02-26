@@ -14,17 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
 
 public class ReminderAdapter extends FirestoreRecyclerAdapter<ReminderItem, ReminderAdapter.RecyclerViewHolder> {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private OnItemClickListener listener;
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     Context context;
 
     public ReminderAdapter(@NonNull FirestoreRecyclerOptions<ReminderItem> options, Context context) {

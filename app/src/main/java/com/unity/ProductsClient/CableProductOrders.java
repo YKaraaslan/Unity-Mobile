@@ -1,12 +1,11 @@
 package com.unity.ProductsClient;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.r0adkll.slidr.Slidr;
 import com.unity.OrdersCableLaser;

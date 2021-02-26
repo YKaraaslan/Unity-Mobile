@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,19 +15,11 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.unity.AssignmentsUserDBItems;
 import com.unity.DateFormatter;
-import com.unity.FragmentWorkersAdapter;
-import com.unity.FragmentWorkersItem;
-import com.unity.HomeMyServicesOursCompletedAdapter;
-import com.unity.HomeMyServicesOursCompletedCallBack;
-import com.unity.HomeMyServicesOursCompletedItems;
 import com.unity.R;
-
-import java.util.List;
 
 public class HomeMyAssignmentsActiveAdapter extends FirestoreRecyclerAdapter<AssignmentsUserDBItems, HomeMyAssignmentsActiveAdapter.RecyclerViewHolder> {
     Context context;
@@ -51,12 +42,10 @@ public class HomeMyAssignmentsActiveAdapter extends FirestoreRecyclerAdapter<Ass
     protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull AssignmentsUserDBItems model) {
         holder.description.setText(model.getNote());
 
-        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(model.getInChargeID())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
         String lastTitle = "(" + model.getAssignmentID() + ") - " + model.getTitle();
         if (lastTitle.length() > 30){

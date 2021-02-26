@@ -1,9 +1,11 @@
 package com.unity.HomePageClient;
 
 public class HomeMyServicesCompletedItems {
-    private int id;
-    private String name, description, time;
-    private int Image;
+    private final int id;
+    private final String name;
+    private final String description;
+    private final String time;
+    private final int Image;
 
     public HomeMyServicesCompletedItems(int id, String name, String description, String time, int image) {
         this.id = id;

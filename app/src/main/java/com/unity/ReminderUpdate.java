@@ -1,10 +1,5 @@
 package com.unity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -17,8 +12,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -93,11 +90,13 @@ public class ReminderUpdate extends AppCompatActivity implements DatePickerDialo
         timePicker.show(getSupportFragmentManager(), "Saat");
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         date.setText(i2 + "/" + (i1+1) + "/" + i);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onTimeSet(TimePicker timePicker, int i, int i1) {
         time.setText(i + ":" + i1);
@@ -133,11 +132,11 @@ public class ReminderUpdate extends AppCompatActivity implements DatePickerDialo
             e.printStackTrace();
         }
 
-        String dateString = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        /*String dateString = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         String timeString = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
         ReminderItem item = new ReminderItem(max_id, Objects.requireNonNull(title.getText()).toString(), Objects.requireNonNull(note.getText()).toString(), dateString, timeString,
-                Objects.requireNonNull(date.getText()).toString(), Objects.requireNonNull(time.getText()).toString(), "active");
+                Objects.requireNonNull(date.getText()).toString(), Objects.requireNonNull(time.getText()).toString(), "active");*/
 
         DocumentReference noteReference = db.collection("Users").document(String.valueOf(sharedPreferences.getInt("id", 0))).collection("Notes")
                 .document(String.valueOf(getIntent().getIntExtra("id", 0)));

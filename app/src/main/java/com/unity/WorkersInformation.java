@@ -1,10 +1,6 @@
 package com.unity;
 
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -91,12 +91,10 @@ public class WorkersInformation extends AppCompatActivity {
         view = findViewById(R.id.view);
         view2 = findViewById(R.id.view2);
 
-        storageReference.child("Users").child(String.valueOf(getIntent().getIntExtra("id", 0))).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(this)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(workersImage);
-        });
+        storageReference.child("Users").child(String.valueOf(getIntent().getIntExtra("id", 0))).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(this)
+                .load(uri.toString())
+                .centerCrop()
+                .into(workersImage));
 
         projects_done_layout.setOnClickListener(view -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WorkersInformation.this);

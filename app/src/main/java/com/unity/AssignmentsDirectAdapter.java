@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,12 +43,10 @@ public class AssignmentsDirectAdapter extends RecyclerView.Adapter<AssignmentsDi
         if (contactList.get(position).isSeen_situation()){
             holder.seen_situation.setImageResource(R.drawable.ic_seen);
 
-            storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-                Glide.with(context)
-                        .load(uri.toString())
-                        .centerCrop()
-                        .into(holder.image);
-            }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+            storageReference.child("Users").child(String.valueOf(contactList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                    .load(uri.toString())
+                    .centerCrop()
+                    .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
 
             String dateTime = contactList.get(position).getSeen_date() + " " + contactList.get(position).getSeen_time();
             DateFormatter dateFormatter = new DateFormatter();
@@ -77,9 +74,7 @@ public class AssignmentsDirectAdapter extends RecyclerView.Adapter<AssignmentsDi
             seen_time = itemView.findViewById(R.id.seen_time);
             seen_situation = itemView.findViewById(R.id.seen_situation);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition());
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition()));
 
             cardView.setOnLongClickListener(view -> {
                 try{

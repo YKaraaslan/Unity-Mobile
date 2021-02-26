@@ -1,10 +1,5 @@
 package com.unity.HomePageClient;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,21 +9,17 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.r0adkll.slidr.Slidr;
-import com.unity.AssignmentsCreateItems;
-import com.unity.AssignmentsDirectItems;
-import com.unity.HomePage;
-import com.unity.ListOfPeople;
 import com.unity.Notifications;
 import com.unity.NotificationsForFinance;
 import com.unity.R;
@@ -95,9 +86,7 @@ public class HomeMyAssignmentsFinish extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(getString(R.string.assignment_finish_text))
-                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> {
-                    Finish();
-                }).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
+                .setPositiveButton(R.string.ok, (dialogInterface, i1) -> Finish()).setNegativeButton(R.string.cancel, (dialogInterface, i12) -> {
 
         }).show();
 

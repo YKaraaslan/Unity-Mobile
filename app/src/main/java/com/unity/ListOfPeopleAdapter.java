@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.unity.HomePageClient.HomeMyAssignmentsItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +43,10 @@ public class ListOfPeopleAdapter extends RecyclerView.Adapter<ListOfPeopleAdapte
         //holder.cardView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation));
         holder.name.setText(workersList.get(position).getName());
 
-        storageReference.child("Users").child(String.valueOf(workersList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(context)
-                    .load(uri.toString())
-                    .centerCrop()
-                    .into(holder.image);
-
-        }).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
+        storageReference.child("Users").child(String.valueOf(workersList.get(position).getId())).getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
+                .load(uri.toString())
+                .centerCrop()
+                .into(holder.image)).addOnFailureListener(e -> holder.image.setImageResource(R.drawable.unity));
     }
 
     public void filterList(ArrayList<ListOfPeopleItems> filteredList) {
@@ -75,9 +70,7 @@ public class ListOfPeopleAdapter extends RecyclerView.Adapter<ListOfPeopleAdapte
             name = itemView.findViewById(R.id.workers_name);
             cardView = itemView.findViewById(R.id.workers_card);
 
-            cardView.setOnClickListener(view -> {
-                callBack.onItemClick(getAdapterPosition(), workersList.get(getAdapterPosition()).getId(), workersList.get(getAdapterPosition()).getName());
-            });
+            cardView.setOnClickListener(view -> callBack.onItemClick(getAdapterPosition(), workersList.get(getAdapterPosition()).getId(), workersList.get(getAdapterPosition()).getName()));
         }
     }
 }
